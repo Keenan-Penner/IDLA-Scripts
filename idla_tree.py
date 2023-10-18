@@ -142,7 +142,7 @@ def idla3(n):
 
 ## Example for 2D tree
 
-'''A=idla(1000)[1]
+'''A=idla(1000)[1] #store edges into variable A
 for i in range(len(A)):
     xline=[A[i][0][0],A[i][1][0]] 
     yline=[A[i][0][1],A[i][1][1]]
@@ -154,12 +154,15 @@ plt.show()
 
 ## Example for 3D tree
 
-A=idla3(1000)[0]
+A=idla3(1000)[1] #store edges into variable A
 
 ax=plt.axes(projection="3d")
 ax.set_box_aspect([1,1,1])
 for i in range(len(A)):
-    ax.plot([A[i][0][0],A[i][1][0]],[A[i][0][1],A[i][1][1]],[A[i][0][2],A[i][1][2]],linewidth=2)
+    xline=[A[i][0][0],A[i][1][0]]
+    yline=[A[i][0][1],A[i][1][1]]
+    zline=[A[i][0][2],A[i][1][2]]
+    ax.plot(xline,yline,zline,linewidth=2)
 plt.axis('off')
 plt.show()
 plt.savefig('IDLA_tree_3D_1.png', dpi=500)'''
