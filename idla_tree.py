@@ -101,7 +101,7 @@ def previous(L,p): #for 3D
 
 def idla(n):
     L=[[0,0]]
-    aretes=[]
+    edges=[]
     count=1
     while count<n:
         
@@ -115,13 +115,13 @@ def idla(n):
         if move not in L:
             previous=prev(move,p)
             L.append(move)
-            aretes.append([previous,move])
+            edges.append([previous,move])
             count+=1
-    return L,aretes
+    return L,edges
 
 def idla3(n):
     L=[[0,0,0]]
-    aretes=[]
+    edges=[]
     count=1
     while count<n:
         
@@ -135,20 +135,20 @@ def idla3(n):
         if move not in L:
             prev=previous(move,p)
             L.append(move)
-            aretes.append([prev,move])
+            edges.append([prev,move])
             count+=1
-    return L,aretes
+    return L,edges
 
 
 ## Example for 2D tree 
 
-'''A=idla(30000)
-for i in range(len(A)):
-    plt.plot([A[i][0][0],A[i][1][0]],[A[i][0][1],A[i][1][1]],linewidth=0.5)
-    plt.axis('square')
-    plt.axis('off')
+A=idla(10000)[0]
+xline=[A[i][0] for i in range(len(A))]
+yline=[A[i][1] for i in range(len(A))]
+plt.scatter(xline,yline,s=2)
+plt.axis('square')
 plt.show()
-plt.savefig('IDLA_tree_30000.png', dpi=500)'''
+
 
 
 ## Example for 3D tree
@@ -168,16 +168,16 @@ plt.savefig('IDLA_tree_3D_1.png', dpi=500)'''
 
 ## 2D TREE WITH COLORED BRANCH
 
-def reverse(aretes):
+def reverse(edges):
     L=[]
-    for i in range( len(aretes) - 1, -1, -1) :
-        L.append(aretes[i])
+    for i in range( len(edges) - 1, -1, -1) :
+        L.append(edges[i])
     return L
 
 
-def branch(aretes,point): #gives all edges from center to point 
+def branch(edges,point): #gives all edges from center to point 
     B=[]
-    rev=reverse(aretes)
+    rev=reverse(edges)
     for i in range(len(rev)):
         if rev[i][1]==point:
             B.append(rev[i])
@@ -188,10 +188,10 @@ def branch(aretes,point): #gives all edges from center to point
 def branchplot(n):
     A=idla(n)
     point=A[0][-1]
-    aretes=A[1]
-    Branch=branch(aretes,point)
-    for i in range(len(aretes)):
-        plt.plot([aretes[i][0][0],aretes[i][1][0]],[aretes[i][0][1],aretes[i][1][1]],linewidth=0.5,color='blue')
+    edges=A[1]
+    Branch=branch(edges,point)
+    for i in range(len(edges)):
+        plt.plot([edges[i][0][0],edges[i][1][0]],[edges[i][0][1],edges[i][1][1]],linewidth=0.5,color='blue')
     for i in range(len(Branch)):
         plt.plot([Branch[i][0][0],Branch[i][1][0]],[Branch[i][0][1],Branch[i][1][1]],linewidth=0.5,color='red')
     plt.axis('square')
@@ -206,10 +206,10 @@ def branchplot3d(n):
     ax=plt.axes(projection="3d")
     ax.set_box_aspect([1,1,1])
     point=A[0][-1]
-    aretes=A[1]
-    Branch=branch(aretes,point)
-    for i in range(len(aretes)):
-        plt.plot([aretes[i][0][0],aretes[i][1][0]],[aretes[i][0][1],aretes[i][1][1]],[aretes[i][0][2],aretes[i][1][2]],linewidth=2,color='blue')
+    edges=A[1]
+    Branch=branch(edges,point)
+    for i in range(len(edges)):
+        plt.plot([edges[i][0][0],edges[i][1][0]],[edges[i][0][1],edges[i][1][1]],[edges[i][0][2],edges[i][1][2]],linewidth=2,color='blue')
     for i in range(len(Branch)):
         plt.plot([Branch[i][0][0],Branch[i][1][0]],[Branch[i][0][1],Branch[i][1][1]],[Branch[i][0][2],Branch[i][1][2]],linewidth=2,color='red')
     plt.axis('square')
