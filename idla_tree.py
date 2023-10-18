@@ -140,25 +140,24 @@ def idla3(n):
     return L,edges
 
 
-## Example for 2D tree 
+## Example for 2D tree
 
-A=idla(10000)[0]
-xline=[A[i][0] for i in range(len(A))]
-yline=[A[i][1] for i in range(len(A))]
-plt.scatter(xline,yline,s=2)
-plt.axis('square')
+'''A=idla(1000)[1]
+for i in range(len(A)):
+    xline=[A[i][0][0],A[i][1][0]] 
+    yline=[A[i][0][1],A[i][1][1]]
+    plt.plot(xline,yline,linewidth=2)
+    plt.axis('square')
 plt.show()
 
 
 
 ## Example for 3D tree
 
-'''A=idla3(1000)[0]
+A=idla3(1000)[0]
 
 ax=plt.axes(projection="3d")
 ax.set_box_aspect([1,1,1])
-
-
 for i in range(len(A)):
     ax.plot([A[i][0][0],A[i][1][0]],[A[i][0][1],A[i][1][1]],[A[i][0][2],A[i][1][2]],linewidth=2)
 plt.axis('off')
