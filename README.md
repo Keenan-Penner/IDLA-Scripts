@@ -24,7 +24,9 @@ Essentially, the vertices of our tree at some step $n$ are are the same as the s
 Here is a simulation of this tree using 20000 particles (the colors of the edges has no particular significance).
 ![My Image](IDLA_tree_20000.png)
 The same simulation using 1000 particles in 3D:
-![My Image](IDLA_tree_3D_1.png)
+<p align="center">
+	<img src=IDLA_tree_3D_1.png width=50% height=50%>
+</p>
 ### Code
 In order to simulate the IDLA tree in dimension 2, run the code and enter the following into the console. Remember to specify how many particles you wish to send as the main argument of `idla()`.
 ```python
