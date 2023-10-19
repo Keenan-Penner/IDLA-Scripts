@@ -151,7 +151,6 @@ for i in range(len(A)):
 plt.show()
 
 
-
 ## Example for 3D tree
 
 A=idla3(1000)[1] #store edges into variable A
