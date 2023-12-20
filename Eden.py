@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 import random
 
-import os 
+
 
 # Small scale --> more particles
 
@@ -114,6 +114,8 @@ def findValue( value , d ): # finds Particle.number for a Particle.mvtTime entry
     for keys in d:
         if value in d[keys].mvtTime:
             return d[keys].number
+
+
 
 
 
@@ -251,6 +253,7 @@ def edenDLA(center = False):
 
 
 # correct version of algorithm, takes in account the memory loss property of exponentially distributed variables
+# still not optimal
 
 def euIDLA(n):
     #INITIALIZATION
@@ -390,8 +393,7 @@ def test(nbStep = 10000, doPlot= True, gridSize = 20): # nbStep --> number of ti
                 births[0] = False
         else:
             # site = sites[0]
-            unif = random.random()
-            move = movement([site], unif)[1] # new site to visit 
+            move = movement([site], random.random())[1] # new site to visit 
             if move in sites:
                 index = sites.index(move)
                 if births[index]: # the site we want to move to is free 
