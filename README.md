@@ -10,7 +10,7 @@ We will recursively build a family of aggregates $A(n)$ as follows:
 In other words, $A(n)$ is obtained by taking $A(n-1)$ and adding the first site that the random walk $S$ visits outside of $A(n-1)$.
 
 For example, here is a simulation with 20000 particles:
-![My Image](IDLA_20000.png)
+![My Image](data/IDLA_20000.png)
 
 ## The IDLA tree
 
@@ -22,13 +22,15 @@ $E_n=E_{n-1}\cup \\{(S(\tau_{n-1},S(\tau_n)\\}$ with $\tau_n=\inf\\{t\geq 0,\ S(
 Essentially, the vertices of our tree at some step $n$ are are the same as the standard IDLA aggregate A(n), while the edges are obtained by taking the edge through which the random walk exits the aggregate $A(n-1)$.
 
 Here is a simulation of this tree using 20000 particles (the colors of the edges has no particular significance).
-![My Image](IDLA_tree_20000.png)
+![My Image](data/IDLA_tree_20000.png)
 The same simulation using 1000 particles in 3D:
 <p align="center">
-	<img src=IDLA_tree_3D_1.png width=50% height=50%>
+	<img src=data/IDLA_tree_3D_1.png width=50% height=50%>
 </p>
+
 ### Code
 In order to simulate the IDLA tree in dimension 2, run the code and enter the following into the console. Remember to specify how many particles you wish to send as the main argument of `idla()`.
+
 ```python
 A=idla(%number of particles to send%)[1] #store edges into variable A
 for i in range(len(A)):
@@ -67,4 +69,4 @@ branchplot3d(n)
 In both functions, $n$ is the number of particles sent from the origin. 
 
 Running `branchplot(20000)` should give something like
-![My Image](branchtest6.png)
+![My Image](data/branchtest6.png)
