@@ -1,7 +1,9 @@
 import matplotlib.pyplot as plt
 import random as rd
 from multiprocessing import Process
-import math
+import numpy as np
+from matplotlib import cm
+from ast import literal_eval
 
 
 # useful tools
@@ -19,7 +21,6 @@ def movement(L,p): #from a given position, gives the new position
         
         newposition = [sum(x) for x in zip(L[0], [1, 0, 0])]
         L.append([1, 0, 0])
-    
     
     elif p<1/3:
         
@@ -82,9 +83,9 @@ if __name__ == "__main__":
     from argparse import ArgumentParser
     import os
     parser = ArgumentParser()
-    parser.add_argument("--particle_nb", type=int, default= 1)
-    parser.add_argument("--levels", type=int, default=2)
-    parser.add_argument("--nb_trials", type=int, default=10)
+    parser.add_argument("--particle_nb", type=int, default= 10)
+    parser.add_argument("--levels", type=int, default=50)
+    parser.add_argument("--nb_trials", type=int, default=1)
     args = parser.parse_args()
 
     if not os.path.exists("simulations"):
@@ -93,10 +94,33 @@ if __name__ == "__main__":
             os.makedirs("simulations")
 
     procs = []
+    '''
     for k in range(args.nb_trials):
         p = Process(target= A3, args=(args.particle_nb, args.levels,k,))
         p.start()
         procs.append(p)
-    
     for p in procs:
         p.join()
+    '''
+    savepath = 'C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Scripts IDLA\\simulations'
+    os.chdir(savepath) #Change directory
+    for k in range(args.nb_trials):
+        A = open(f"agg{k}.txt",'r').read() #Assigns the contents of the file to B as string
+        A = literal_eval(A) #Makes this an array
+        fig = plt.figure()
+        ax = fig.add_subplot(projection='3d')
+        ax.set_aspect('equal')
+
+        X = [elem[0] for elem in A]
+        Y = [elem[1] for elem in A]
+        Z = [elem[2] for elem in A]
+        ax.scatter(X, Y, Z, depthshade=False)
+        # Create cubic bounding box to simulate equal aspect ratio
+        max_range = np.array([max(X)-min(X), max(Y)-min(Y), max(Z)-min(Z)]).max()
+        Xb = 0.3*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][0].flatten() + 0.5*(max(X)+min(X))
+        Yb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][1].flatten() + 0.5*(max(Y)+min(Y))
+        Zb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][2].flatten() + 0.5*(max(Z)+min(Z))
+        # Comment or uncomment following both lines to test the fake bounding box:
+        for xb, yb, zb in zip(Xb, Yb, Zb):
+            ax.plot([xb], [yb], [zb], 'w')
+        plt.savefig(os.path.join(savepath, f"agg{k}.png"))
