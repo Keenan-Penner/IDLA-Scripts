@@ -9,6 +9,7 @@ from ast import literal_eval
 # useful tools
 
 FOLDER_NAME = "Simtest"
+LOG_NAME = "log_files"
 
 def levelsplane(M):
     L = []
@@ -69,13 +70,21 @@ def A3(n, M, num = 0):
     I = []
     total = (2*M +1)**2
     progress = 1
-    print(f"Process{num} started")
+    file = open(f"{LOG_NAME}/init{num}.txt", 'w')
+    file.write(f"Process{num} started")
+    file.close()
     while count < total:
         I = idla(n, level_list[count], I)
         count+=1
         if count >= (total/10)*progress:
             print(f"Process{num} at {progress*10}%")
+            file = open(f"{LOG_NAME}/init{progress*10}.txt", 'w')
+            file.write(f"Process{num} at {progress*10}%")
+            file.close()
             progress+=1
+    file = open(f"{LOG_NAME}/init{progress*10}.txt", 'w')
+    file.write(f"Process{num} finished")
+    file.close()
     file = open(f"{FOLDER_NAME}/agg{num}.txt", 'w')
     file.write(str(I))
     file.close()
@@ -86,24 +95,35 @@ if __name__ == "__main__":
     import os
     parser = ArgumentParser()
     parser.add_argument("--particle_nb", type=int, default= 100)
-    parser.add_argument("--levels", type=int, default=100) #variable levels corresponds to the max level M
-    parser.add_argument("--nb_trials", type=int, default=1)
+    parser.add_argument("--levels", type=int, default= 1) #variable levels corresponds to the max level M
+    parser.add_argument("--nb_trials", type=int, default= 1)
     args = parser.parse_args()
 
     if not os.path.exists(FOLDER_NAME):
             # create the directory
             print(f"Creating directory {FOLDER_NAME}")
             os.makedirs(FOLDER_NAME)
+    if not os.path.exists(LOG_NAME):
+            # create the directory
+            print(f"Creating directory {LOG_NAME}")
+            os.makedirs(LOG_NAME)
 
     procs = []
     
+    # FOR SIMPLE PROCESSING
+    
+    A3(args.particle_nb, args.levels, 0 )
+
+
+    #FOR MULTI PROCESSING
+    '''
     for k in range(args.nb_trials):
         p = Process(target= A3, args=(args.particle_nb, args.levels,k,))
         p.start()
         procs.append(p)
     for p in procs:
         p.join()
-    
+    '''
     '''
     savepath = f"C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Scripts IDLA\\{FOLDER_NAME}"
     os.chdir(savepath) #Change directory
