@@ -10,6 +10,7 @@ from ast import literal_eval
 
 FOLDER_NAME = "Simtest"
 LOG_NAME = "log_files"
+PERCENT_INCREMENT = 1 #Either 1 or 10
 
 def levelsplane(M):
     L = []
@@ -70,19 +71,20 @@ def A3(n, M, num = 0):
     I = []
     total = (2*M +1)**2
     progress = 1
+    increment = 100 / PERCENT_INCREMENT
     file = open(f"{LOG_NAME}/init{num}.txt", 'w')
     file.write(f"Process{num} started")
     file.close()
     while count < total:
         I = idla(n, level_list[count], I)
         count+=1
-        if count >= (total/10)*progress:
-            print(f"Process{num} at {progress*10}%")
-            file = open(f"{LOG_NAME}/init{progress*10}.txt", 'w')
-            file.write(f"Process{num} at {progress*10}%")
+        if count >= (total/increment)*progress:
+            print(f"Process{num} at {progress*PERCENT_INCREMENT}%")
+            file = open(f"{LOG_NAME}/init{progress*PERCENT_INCREMENT}.txt", 'w')
+            file.write(f"Process{num} at {progress*PERCENT_INCREMENT}%")
             file.close()
             progress+=1
-    file = open(f"{LOG_NAME}/init{progress*10}.txt", 'w')
+    file = open(f"{LOG_NAME}/init{progress*PERCENT_INCREMENT}.txt", 'w')
     file.write(f"Process{num} finished")
     file.close()
     file = open(f"{FOLDER_NAME}/agg{num}.txt", 'w')
@@ -94,8 +96,8 @@ if __name__ == "__main__":
     from argparse import ArgumentParser
     import os
     parser = ArgumentParser()
-    parser.add_argument("--particle_nb", type=int, default= 100)
-    parser.add_argument("--levels", type=int, default= 1) #variable levels corresponds to the max level M
+    parser.add_argument("--particle_nb", type=int, default= 1)
+    parser.add_argument("--levels", type=int, default= 100) #variable levels corresponds to the max level M
     parser.add_argument("--nb_trials", type=int, default= 1)
     args = parser.parse_args()
 
