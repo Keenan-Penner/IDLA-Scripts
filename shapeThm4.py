@@ -8,8 +8,8 @@ from ast import literal_eval
 
 # useful tools
 
-FOLDER_NAME = "Simtest3"
-LOG_NAME = "log_files3"
+FOLDER_NAME = "Simtest4"
+LOG_NAME = "log_files4"
 PERCENT_INCREMENT = 1 #Either 1 or 10
 
 def levelsplane(M):
@@ -96,8 +96,8 @@ if __name__ == "__main__":
     from argparse import ArgumentParser
     import os
     parser = ArgumentParser()
-    parser.add_argument("--particle_nb", type=int, default= 100)
-    parser.add_argument("--levels", type=int, default= 100) #variable levels corresponds to the max level M
+    parser.add_argument("--particle_nb", type=int, default= 40)
+    parser.add_argument("--levels", type=int, default= 40) #variable levels corresponds to the max level M
     parser.add_argument("--nb_trials", type=int, default= 1)
     args = parser.parse_args()
 
