@@ -5,8 +5,8 @@ import os
 from ast import literal_eval
 from tqdm import tqdm
 import numpy as np
-
-from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import animation
+from mpl_toolkits.mplot3d import axes3d
 import matplotlib.pyplot as plt
 from argparse import ArgumentParser
 
@@ -22,6 +22,11 @@ if __name__ == "__main__":
         "--slice",
         action="store_true",
         help="Slice the voxel grid such that x >= 20"
+    )
+    parser.add_argument(
+        "--animate",
+        action="store_true",
+        help="Animate the plot"
     )
     parser.add_argument(
         "--root",
@@ -86,7 +91,7 @@ if __name__ == "__main__":
         max_x = np.max(A[(A[:, 1] == point_y) & (A[:, 2] == point_z)][:, 0])
         min_x = np.min(A[(A[:, 1] == point_y) & (A[:, 2] == point_z)][:, 0])
         """
-        voxel_x = point_x + args.particle_num // 2
+        voxel_x = point_x + abs(global_mini_x)
         voxel_y = point_y + args.window
         voxel_z = point_z + args.window
         if current_min_x < point_x < current_max_x:
@@ -101,6 +106,7 @@ if __name__ == "__main__":
             # voxel_grid[voxel_x, voxel_y, voxel_z] = 2
             colors[voxel_x, voxel_y, voxel_z] = "red"
             voxel_grid[voxel_x, voxel_y, voxel_z] = 1
+            #print(point_x, current_max_x, current_min_x, point_y, point_z, voxel_x, voxel_y, voxel_z)
         else:
             # voxel_grid[voxel_x, voxel_y, voxel_z] = 3
             colors[voxel_x, voxel_y, voxel_z] = "royalblue"
@@ -121,18 +127,45 @@ if __name__ == "__main__":
     y -= args.window
     z -= args.window
 
-    # equal aspect ratio
-    ax.voxels(x, y, z, voxel_grid, facecolors=colors, edgecolor='k')
-    if args.slice:
-        plt.xticks(np.arange(0, global_maxi_x + 1, 5))
-    else:
-        plt.xticks(np.arange(global_mini_x, global_maxi_x + 1, 5))
-    
-    ax.set_xlabel('X axis')
-    ax.set_ylabel('Y axis')
-    ax.set_zlabel('Z axis') 
-    ax.set_box_aspect([1, 1, 1])
-    ax.set_aspect('equal')
     suffix = "_sliced" if args.slice else ""
-    plt.savefig(os.path.join(args.root, args.folder, f"voxels_window{suffix}"))
-    plt.show()
+
+    # Plot or animate the voxel grid
+
+    if not args.animate: # if we don't want to animate the plot
+        ax.voxels(x, y, z, voxel_grid, facecolors=colors, edgecolor='k')
+        if args.slice:
+            plt.xticks(np.arange(0, global_maxi_x + 1, 5))
+        else:
+            #plt.xticks(np.arange(global_mini_x, global_maxi_x + 1, 5))
+            plt.xticks(np.arange(-args.particle_num /2 - 5, args.particle_num /2 + 5, 5))
+        ax.set_xlabel('X axis')
+        ax.set_ylabel('Y axis')
+        ax.set_zlabel('Z axis') 
+        ax.set_box_aspect([1, 1, 1])
+        ax.set_aspect('equal')
+        plt.savefig(os.path.join(args.root, args.folder, f"voxels_window{suffix}"))
+        plt.show()
+    else: # if we want to animate the plot
+        def init():
+            ax.voxels(x, y, z, voxel_grid, facecolors=colors, edgecolor='k')
+            if args.slice:
+                plt.xticks(np.arange(0, global_maxi_x + 1, 5))
+            else:
+                #plt.xticks(np.arange(global_mini_x, global_maxi_x + 1, 5))
+                plt.xticks(np.arange(-args.particle_num /2 - 5, args.particle_num /2 + 5, 5))
+            ax.set_xlabel('X axis')
+            ax.set_ylabel('Y axis')
+            ax.set_zlabel('Z axis') 
+            ax.set_box_aspect([1, 1, 1])
+            ax.set_aspect('equal')
+            return fig,
+
+        def animate(i):
+            ax.view_init(elev=2., azim=i)
+            return fig,
+
+        # Animate
+        anim = animation.FuncAnimation(fig, animate, init_func=init,
+                                    frames=360, interval=20, blit=True)
+        # Save
+        anim.save(os.path.join(args.root, args.folder, f"voxels_window_anim{suffix}.mp4"), fps=30, extra_args=['-vcodec', 'libx264'])
