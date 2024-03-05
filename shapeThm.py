@@ -4,6 +4,7 @@ from multiprocessing import Process
 import numpy as np
 from matplotlib import cm
 from ast import literal_eval
+from numba import jit 
 
 
 # useful tools
@@ -48,6 +49,8 @@ def movement(L,p): #from a given position, gives the new position
         L.append([0, 0, -1])
     return L, newposition
 
+
+@jit(nopython=True)
 def idla(n, source, agg): #IDLA with n particles from a source, within a given aggregate 
     count = 0
     while count < n:
