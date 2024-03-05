@@ -85,5 +85,6 @@ if CUBED:
         ax.plot([xb], [yb], [zb], 'w')
     pc = plotCubeAt2(positions,sizes=None,colors=None, edgecolor="k")
     ax.add_collection3d(pc)
-    plt.savefig(os.path.join(savepath, f"agg{PARTICLE_NUM}-{PARTICLE_NUM}-cube.png"), dpi = 600)
+    #plt.savefig(os.path.join(savepath, f"agg{PARTICLE_NUM}-{PARTICLE_NUM}-cube.png"), dpi = 600)
+    plt.show()
     plt.clf()
