@@ -5,15 +5,16 @@ import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
-FOLDER_NAME = 'shapeThm-agg'
+FOLDER_NAME = 'shapeThm-agg/data20-40'
+FILE_NAME = 'agg20-40'
 CUBED = True 
 PLANE = False
-PARTICLE_NUM = 30
+PARTICLE_NUM = 20
 
 savepath = f"C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Scripts IDLA\\data\\{FOLDER_NAME}"
 os.chdir(savepath) #Change directory
 
-A = open(f"agg{PARTICLE_NUM}-{PARTICLE_NUM}.txt",'r').read() #Assigns the contents of the file to B as string
+A = open(f"{FILE_NAME}.txt",'r').read() #Assigns the contents of the file to B as string
 A = literal_eval(A) #Makes this an array
 fig = plt.figure()
 ax = fig.add_subplot(projection='3d')
@@ -39,7 +40,7 @@ Yb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][1].flatten() + 0.5*(max(Y)+min
 Zb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][2].flatten() + 0.5*(max(Z)+min(Z))
 for xb, yb, zb in zip(Xb, Yb, Zb):
     ax.plot([xb], [yb], [zb], 'w')
-plt.savefig(os.path.join(savepath, f"agg{PARTICLE_NUM}-{PARTICLE_NUM}.png"), dpi = 600)
+#plt.savefig(os.path.join(savepath, f"agg{PARTICLE_NUM}-{PARTICLE_NUM}.png"), dpi = 600)
 plt.clf()
 
 
@@ -72,19 +73,25 @@ def plotCubeAt2(positions,sizes=None,colors=None, **kwargs):
 if CUBED:
     fig = plt.figure()
     ax = fig.add_subplot(projection='3d')
+    
+    ax.set_xlabel('X axis')
+    ax.set_ylabel('Y axis')
+    ax.set_zlabel('Z axis') 
     ax.set_aspect('equal')
     positions=[]
     for elem in A:
         new_elem = [elem[0]-.5, elem[1]-.5, elem[2]-.5]
         positions.append(new_elem)
+
     max_range = np.array([max(X)-min(X), max(Y)-min(Y), max(Z)-min(Z)]).max()
     Xb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][0].flatten() + 0.5*(max(X)+min(X))
     Yb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][1].flatten() + 0.5*(max(Y)+min(Y))
     Zb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][2].flatten() + 0.5*(max(Z)+min(Z))
     for xb, yb, zb in zip(Xb, Yb, Zb):
         ax.plot([xb], [yb], [zb], 'w')
+
     pc = plotCubeAt2(positions,sizes=None,colors=None, edgecolor="k")
     ax.add_collection3d(pc)
-    #plt.savefig(os.path.join(savepath, f"agg{PARTICLE_NUM}-{PARTICLE_NUM}-cube.png"), dpi = 600)
-    plt.show()
-    plt.clf()
+    plt.savefig(os.path.join(savepath, f"agg{PARTICLE_NUM}-{PARTICLE_NUM}-cube.png"), dpi = 1000)
+    #plt.show()
+    #plt.clf()
