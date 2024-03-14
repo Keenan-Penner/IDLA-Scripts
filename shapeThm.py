@@ -1,14 +1,12 @@
-import matplotlib.pyplot as plt
 import random as rd
 from multiprocessing import Process
-import numpy as np
-from matplotlib import cm
-from ast import literal_eval
 from numba import jit 
+from argparse import ArgumentParser
+import os
 
 
 # useful tools
-
+@jit(nopython=True)
 def levelsplane(M):
     L = []
     for i in range(-M, M+1):
@@ -16,6 +14,7 @@ def levelsplane(M):
             L.append([i, j])
     return L
 
+@jit(nopython=True)
 def movement(L,p): #from a given position, gives the new position 
 
     if p<1/6:
@@ -49,8 +48,7 @@ def movement(L,p): #from a given position, gives the new position
         L.append([0, 0, -1])
     return L, newposition
 
-
-@jit(nopython=True)
+@jit(nopython=True) 
 def idla(n, source, agg): #IDLA with n particles from a source, within a given aggregate 
     count = 0
     while count < n:
@@ -64,10 +62,11 @@ def idla(n, source, agg): #IDLA with n particles from a source, within a given a
     return agg
 
 # Cluster function of An[M] in 3D, returning coordinates of cluster points
+@jit(nopython=True)
 def A3(n, M, num = 0): 
     level_list = levelsplane(M)
     count = 0
-    I = []
+    I = [[0,0,0]]
     total = (2*M +1)**2
     progress = 1
     print(f"Process{num} started")
@@ -77,53 +76,64 @@ def A3(n, M, num = 0):
         if count >= (total/10)*progress:
             print(f"Process{num} at {progress*10}%")
             progress+=1
-    file = open(f"simulations/agg{num}.txt", 'w')
-    file.write(str(I))
-    file.close()
-    return I
+    return I[1:]
 
 if __name__ == "__main__":
-    from argparse import ArgumentParser
-    import os
     parser = ArgumentParser()
-    parser.add_argument("--particle_nb", type=int, default= 10)
-    parser.add_argument("--levels", type=int, default=50)
-    parser.add_argument("--nb_trials", type=int, default=1)
+    parser.add_argument(
+        "--particle_nb", 
+        type=int, 
+        default= 1
+    )
+    parser.add_argument(
+        "--levels", 
+        type=int, 
+        default=50
+    )
+    parser.add_argument(
+        "--nb_trials", 
+        type=int, 
+        default=1
+    )
+    parser.add_argument(
+        "--multiprocessing",
+        action="store_true",
+        help="Use multiprocessing",
+    )
+    parser.add_argument(
+        "--increment",
+        type=int,
+        default=10,
+        help="Increment for the progress bar, either 1 or 10"
+    )
+    parser.add_argument(
+        "--root",
+        type=str,
+        default="C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Scripts IDLA\\",
+    )
+    parser.add_argument(
+        "--folder",
+        type=str,
+        default="simulationsJit",
+    )
     args = parser.parse_args()
-
-    if not os.path.exists("simulations"):
+    root_file = os.path.join(args.root, args.folder)
+    if not os.path.exists(root_file): #if the directory does not exist
             # create the directory
-            print("Creating directory simulations")
-            os.makedirs("simulations")
+            print(f"Creating directory {args.folder}")
+            os.makedirs(args.folder)
 
     procs = []
-    '''
-    for k in range(args.nb_trials):
-        p = Process(target= A3, args=(args.particle_nb, args.levels,k,))
-        p.start()
-        procs.append(p)
-    for p in procs:
-        p.join()
-    '''
-    savepath = 'C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Scripts IDLA\\simulations'
-    os.chdir(savepath) #Change directory
-    for k in range(args.nb_trials):
-        A = open(f"agg{k}.txt",'r').read() #Assigns the contents of the file to B as string
-        A = literal_eval(A) #Makes this an array
-        fig = plt.figure()
-        ax = fig.add_subplot(projection='3d')
-        ax.set_aspect('equal')
+    if args.multiprocessing: #if we wish to use multiprocessing, needs fixing
+        for k in range(args.nb_trials):
+            p = Process(target= A3, args=(args.particle_nb, args.levels,k,))
+            p.start()
+            procs.append(p)
+        for p in procs:
+            p.join()
+        print(procs)
+    else:
+        file = open(f"{args.folder}/agg{args.nb_trials}.txt", 'w')
+        file.write(str(A3(args.particle_nb, args.levels, 0 )))
+        file.close()
 
-        X = [elem[0] for elem in A]
-        Y = [elem[1] for elem in A]
-        Z = [elem[2] for elem in A]
-        ax.scatter(X, Y, Z, depthshade=False)
-        # Create cubic bounding box to simulate equal aspect ratio
-        max_range = np.array([max(X)-min(X), max(Y)-min(Y), max(Z)-min(Z)]).max()
-        Xb = 0.3*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][0].flatten() + 0.5*(max(X)+min(X))
-        Yb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][1].flatten() + 0.5*(max(Y)+min(Y))
-        Zb = 0.5*max_range*np.mgrid[-1:2:2,-1:2:2,-1:2:2][2].flatten() + 0.5*(max(Z)+min(Z))
-        # Comment or uncomment following both lines to test the fake bounding box:
-        for xb, yb, zb in zip(Xb, Yb, Zb):
-            ax.plot([xb], [yb], [zb], 'w')
-        plt.savefig(os.path.join(savepath, f"agg{k}.png"))
