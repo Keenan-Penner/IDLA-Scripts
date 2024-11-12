@@ -1,6 +1,6 @@
 # About
 ## The standard IDLA model
-The following file contains Python code for running standard 2D and 3D IDLA. The IDLA model (Internal Diffusion Limited Aggregation) is a random growth model on $\mathbb{Z}^d$, which creates 
+The following file contains a Python GUI for running standard 2D and 3D IDLA. The IDLA model (Internal Diffusion Limited Aggregation) is a random growth model on $\mathbb{Z}^d$, which creates 
 random aggregates according to a specific rule.
 We will recursively build a family of aggregates $A(n)$ as follows:
 1. For $n=0,\ A(0)=\emptyset$
@@ -28,8 +28,20 @@ The same simulation using 1000 particles in 3D:
 	<img src=data/IDLA_tree_3D_1.png width=50% height=50%>
 </p>
 
-### Code
-In order to simulate the IDLA tree in dimension 2, run the code and enter the following into the console. Remember to specify how many particles you wish to send as the main argument of `idla()`.
+### Using the GUI
+The GUI folder contains Python code capable of simulating various IDLA models. Begin by copying the contents of the folder named 'GUI' to your machine, and run ```GUI/main.py``` in your terminal.
+The following window should pop up :
+
+![My Image](data/gui_capture.PNG)
+
+At the moment, you can choose between 4 different models: the classical IDLA model in 2D and 3D, and the multisource IDLA model in 2D and 3D.
+For the classical models, the GUI returns images of the aggregate and its associated tree, with the option of highlighting the last plotted branch. 
+The user also has the option to save the figures.
+
+For the multisource model, the user is asked to provide both the number of particles sent per site $n$ and the desired value of $M$ to plot the aggregate $A_n[M]$.
+
+
+<!-- In order to simulate the IDLA tree in dimension 2, run the code and enter the following into the console. Remember to specify how many particles you wish to send as the main argument of `idla()`.
 
 ```python
 A=idla(%number of particles to send%)[1] #store edges into variable A
@@ -54,19 +66,20 @@ for i in range(len(A)):
     ax.plot(xline,yline,zline,linewidth=2) #play with linewidth to get prettier graphics
 plt.axis('off')
 plt.show()
-```
+``` -->
 ## Questions around the model
 
 This tree is difficult to study due to the strong dependency bewteen all particles in the IDLA model as well as its radial aspect. One of the main interesting questions about this tree is the straightness of its branches. 
 Looking at various simulations, these branches seem relatively straight, but this remains to be proven. 
-We give a Python code to plot a simulation of the tree, with one of the branches highlighted in bright red. 
+The user can play around by checking the 'Show highlighted branch' on the 2D and 3D classical IDLA tabs. Note that this may not be easily visible in 3D.
 
-This is available in the 2-dimensional setting as well as the 3-dimensional setting, and can be obtained by running the following functions in the console:
+<!-- This is available in the 2-dimensional setting as well as the 3-dimensional setting, and can be obtained by running the following functions in the console:
 ```python
 branchplot(n)
 branchplot3d(n)
 ```
-In both functions, $n$ is the number of particles sent from the origin. 
+In both functions, $n$ is the number of particles sent from the origin. -->
 
-Running `branchplot(20000)` should give something like
+As an example, a simulation with 20000 particles gives something like
+
 ![My Image](data/branchtest6.png)
