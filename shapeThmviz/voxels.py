@@ -53,9 +53,14 @@ if __name__ == "__main__":
         action="store_true",
         help="Plot the full plot"
     )
+    parser.add_argument(
+        "--file",
+        type=str,
+        default="agg30-30.txt",
+    )
     args = parser.parse_args()
     root_file = os.path.join(args.root, args.folder)
-    A = open(os.path.join(root_file, f"agg{args.particle_num}-{args.particle_num}.txt"), "r").read()
+    A = open(os.path.join(root_file, f"{args.file}.txt"), "r").read()
     A = literal_eval(A)  # make it an array
     A = np.array(A)
 
