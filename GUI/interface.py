@@ -67,7 +67,7 @@ class MyGUI:
         # Radiobuttons
         self.frame1_L2 = tk.Label(self.frame1_box2, text="Do you wish to save the figures? ")
         self.frame1_L2.pack(pady=10, padx=20, expand=False, side=tk.LEFT)
-        self.frame1_info = tk.Label(self.frame1, text="Note: If YES is selected, the figure(s) will be saved inside a folder named 'sim//2D//classical' in the current directory")
+        self.frame1_info = tk.Label(self.frame1, text="Note: If YES is selected, the figures will be saved inside a folder named 'sim//2D//classical' in the current directory")
         self.frame1_info.pack(pady=10, padx=20, expand=False)
         self.frame1_save_state = tk.IntVar()
         self.frame1_save_state.set(0)  # Default is NO
@@ -107,7 +107,7 @@ class MyGUI:
         # Radiobuttons
         self.frame2_L2 = tk.Label(self.frame2_box2, text="Do you wish to save the figures? ")
         self.frame2_L2.pack(pady=10, padx=20, expand=False, side=tk.LEFT)
-        self.frame2_info = tk.Label(self.frame2, text="Note: If YES is selected, the figure(s) will be saved inside a folder named 'sim//2D//classical' in the current directory")
+        self.frame2_info = tk.Label(self.frame2, text="Note: If YES is selected, the figures will be saved inside a folder named 'sim//2D//classical' in the current directory")
         self.frame2_info.pack(pady=10, padx=20, expand=False)
         self.frame2_save_state = tk.IntVar()
         self.frame2_save_state.set(0)  # Default is NO
@@ -148,7 +148,7 @@ class MyGUI:
         # Radiobuttons
         self.frame3_L3 = tk.Label(self.frame3_box2, text="Do you wish to save the figures? ")
         self.frame3_L3.pack(pady=10, padx=20, expand=False, side=tk.LEFT)
-        self.frame3_info = tk.Label(self.frame3, text="Note: If YES is selected, the figure(s) will be saved inside a folder named 'sim//2D//multisource' in the current directory")
+        self.frame3_info = tk.Label(self.frame3, text="Note: If YES is selected, the figure will be saved inside a folder named 'sim//2D//multisource' in the current directory")
         self.frame3_info.pack(pady=10, padx=20, expand=False)
         self.frame3_save_state = tk.IntVar()
         self.frame3_save_state.set(0)  # Default is NO
@@ -189,7 +189,7 @@ class MyGUI:
         # Radiobuttons
         self.frame4_L3 = tk.Label(self.frame4_box2, text="Do you wish to save the figures? ")
         self.frame4_L3.pack(pady=10, padx=20, expand=False, side=tk.LEFT)
-        self.frame4_info = tk.Label(self.frame4, text="Note: If YES is selected, the figure(s) will be saved inside a folder named 'sim//2D//multisource' in the current directory")
+        self.frame4_info = tk.Label(self.frame4, text="Note: If YES is selected, the figure will be saved inside a folder named 'sim//2D//multisource' in the current directory")
         self.frame4_info.pack(pady=10, padx=20, expand=False)
         self.frame4_save_state = tk.IntVar()
         self.frame4_save_state.set(0)  # Default is NO
