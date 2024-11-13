@@ -20,9 +20,9 @@ class Eden:
     """
     def __init__(
         self,
-        birth_scale: float = 5,
-        time_scale: float = 0.2,
-        final_size: int = 10000,
+        birth_scale: float = 10,
+        time_scale: float = 0.1,
+        final_size: int = 20000,
         do_plot: bool = False,
         grid_size: int = 100,
         save_path: str = "C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Simulation\\sim_eden",
@@ -137,7 +137,8 @@ class Eden:
         Simulate the EDEN process.
         """
         for _ in tqdm(range(self.final_size)):
-            self.single_step() 
+            self.single_step()
+        self.plot() # plots the aggregate at the final step 
 
     def plot(self):
         """
@@ -181,9 +182,9 @@ class Eden:
 if __name__ == "__main__":
     from argparse import ArgumentParser
     parser = ArgumentParser()
-    parser.add_argument("--birth_scale", type=float, default=5)
-    parser.add_argument("--time_scale", type=float, default=0.2)
-    parser.add_argument("--final_size", type=int, default=10000)
+    parser.add_argument("--birth_scale", type=float, default=10)
+    parser.add_argument("--time_scale", type=float, default=0.1)
+    parser.add_argument("--final_size", type=int, default=100)
     parser.add_argument("--do_plot", action="store_true")
     parser.add_argument("--grid_size", type=int, default=100)
     parser.add_argument("--save_path", type=str, default="C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Simulation\\sim_eden")
