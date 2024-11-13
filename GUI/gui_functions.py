@@ -97,6 +97,8 @@ def idla(n):
     L=[[0,0]]
     edges=[]
     count=1
+    progress = 1
+    print("Process started")
     while count<n:
         p=rd.random()
         move=movement2D([[0,0]],p)[1]
@@ -108,6 +110,9 @@ def idla(n):
             L.append(move)
             edges.append([previous,move])
             count+=1
+        if count >= (n/10)*progress:
+            print(f"Process at {progress*10}%")
+            progress+=1
     return L, edges
 
 #classical IDLA in 3D
@@ -116,6 +121,8 @@ def idla3(n):
     L=[[0,0,0]]
     edges=[]
     count=1
+    progress = 1
+    print("Process started")
     while count<n:
         p=rd.random()
         move=movement3D([[0,0,0]],p)[1]
@@ -127,6 +134,9 @@ def idla3(n):
             L.append(move)
             edges.append([prev,move])
             count+=1
+        if count >= (n/10)*progress:
+            print(f"Process at {progress*10}%")
+            progress+=1
     return L, edges
 
 
@@ -167,7 +177,7 @@ def A2(n,M):
     total = 2*M +1
     progress = 1
     I=[[0,0]]
-    print(f"Process started")
+    print("Process started")
     while count< total:
         I=idla2d_general(n, level_list[count], I)
         count+=1
@@ -185,7 +195,7 @@ def A3(n, M):
     I = [[0,0,0]]
     total = (2*M +1)**2
     progress = 1
-    print(f"Process started")
+    print("Process started")
     while count < total:
         I = idla3d_general(n, level_list[count], I)
         count+=1
@@ -229,6 +239,7 @@ def treeplot2d(n, branch_arg, save_path):
     extremum = max(max_x, max_y)
     plt.xlim(-extremum - 1, extremum + 1)
     plt.ylim(-extremum - 1, extremum + 1)
+    plt.title(f"2D IDLA with {n} particles")
     plt.savefig(f'{save_path}_agg.png', dpi=500)
     plt.clf()
     ##TREE
@@ -242,6 +253,7 @@ def treeplot2d(n, branch_arg, save_path):
     plt.axis('square')
     plt.xlim(-extremum - 1, extremum + 1)
     plt.ylim(-extremum - 1, extremum + 1)
+    plt.title(f"2D IDLA tree with {n} particles")
     plt.savefig(f'{save_path}_tree.png', dpi=500)
     plt.clf()
 
@@ -257,6 +269,7 @@ def treeplot3d(n, branch_arg, savepath):
     ypoints = [points[i][1] for i in range(len(points))]
     zpoints = [points[i][2] for i in range(len(points))]
     ax.scatter(xpoints,ypoints,zpoints, s=2, color = 'C0')
+    plt.title(f"3D IDLA with {n} particles")
     plt.axis('off')
     plt.savefig(f'{savepath}_agg.png', dpi=500)
     plt.clf()
@@ -277,6 +290,7 @@ def treeplot3d(n, branch_arg, savepath):
             yline=[Branch[i][0][1],Branch[i][1][1]]
             zline=[Branch[i][0][2],Branch[i][1][2]]
             ax.plot(xline,yline,zline,linewidth=2, color = 'red')
+    plt.title(f"3D IDLA tree with {n} particles")
     plt.axis('off')
     plt.savefig(f'{savepath}_tree.png', dpi=500)
     plt.clf()
@@ -293,10 +307,10 @@ def multisource2d(n, M, savepath):
     print(max_x)
     plt.scatter(xpoints, ypoints, s=2, color = 'C0')
     plt.axis('square')
+    plt.title(f"2D Multi-source IDLA : A_{n}[{M}]")
     extremum = max(max_x, max_y)
     plt.xlim(-extremum - 1, extremum + 1)
     plt.ylim(-extremum - 1, extremum + 1)
-    plt.show()
     plt.savefig(f'{savepath}_agg.png', dpi=500)
     plt.clf()
 
@@ -350,6 +364,6 @@ def multisource3d(n, M, savepath):
     ax.set_zlabel('Z axis') 
     ax.set_box_aspect([1, 1, 1])
     ax.set_aspect('equal')
-    plt.show()
+    plt.title(f"3D Multi-source IDLA : A_{n}[{M}]")
     plt.savefig(f'{savepath}_agg.png', dpi=500)
     plt.clf()
