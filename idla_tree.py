@@ -1,6 +1,6 @@
 import random as rd
 import matplotlib.pyplot as plt
-import ffmpeg
+
 ## PRELIMINARY FUNCTIONS
 
 def sum_list(L1,L2):
@@ -136,7 +136,7 @@ def idla3(n):
             L.append(move)
             edges.append([prev,move])
             count+=1
-    return L,edges
+    return L, edges
 
 
 ## Example for 2D tree
@@ -197,6 +197,19 @@ def branchplot(n):
     plt.axis('square')
     plt.show()
 
+def treeplot(n, branch_arg):
+    A=idla(n)
+    point=A[0][-1]
+    edges=A[1]
+    Branch=branch(edges,point)
+    for i in range(len(edges)):
+        plt.plot([edges[i][0][0],edges[i][1][0]],[edges[i][0][1],edges[i][1][1]],linewidth=0.5,color='blue')
+    if branch_arg:
+        for i in range(len(Branch)):
+            plt.plot([Branch[i][0][0],Branch[i][1][0]],[Branch[i][0][1],Branch[i][1][1]],linewidth=0.5,color='red')
+    plt.axis('square')
+    plt.show()
+
 
 ## 3D TREE WITH COLORED BRANCH
 
@@ -213,3 +226,4 @@ def branchplot3d(n):
         plt.plot([Branch[i][0][0],Branch[i][1][0]],[Branch[i][0][1],Branch[i][1][1]],[Branch[i][0][2],Branch[i][1][2]],linewidth=2,color='red')
     plt.axis('square')
     plt.show()
+
