@@ -278,7 +278,23 @@ class MyGUI:
         self.frame1_particle_num = self.frame1_E1.get() if self.frame1_E1 else None
         if not self.frame1_particle_num:
             messagebox.showerror("Error", "Please enter a valid number of particles")
+            self.frame1_submit_btn.config(state=tk.NORMAL)  # Disable all submit buttons while task is running
+            self.frame2_submit_btn.config(state=tk.NORMAL) 
+            self.frame3_submit_btn.config(state=tk.NORMAL)
+            self.frame4_submit_btn.config(state=tk.NORMAL)
+            self.update_label("IDLA Simulations")  # Update status label
             return
+        else:
+            try:
+                self.frame1_particle_num = int(self.frame1_particle_num)
+            except ValueError:
+                messagebox.showerror("Error", "Please enter a valid number of particles")
+                self.frame1_submit_btn.config(state=tk.NORMAL)  # Disable all submit buttons while task is running
+                self.frame2_submit_btn.config(state=tk.NORMAL) 
+                self.frame3_submit_btn.config(state=tk.NORMAL)
+                self.frame4_submit_btn.config(state=tk.NORMAL)
+                self.update_label("IDLA Simulations")  # Update status label
+                return
         self.frame1_particle_num = int(self.frame1_E1.get())
         self.frame1_branch_active = branch_active
         self.frame1_savepath = savepath
@@ -407,7 +423,23 @@ class MyGUI:
         self.frame2_particle_num = self.frame2_E1.get() if self.frame2_E1 else None
         if not self.frame2_particle_num:
             messagebox.showerror("Error", "Please enter a valid number of particles")
+            self.frame1_submit_btn.config(state=tk.NORMAL)  # Disable all submit buttons while task is running
+            self.frame2_submit_btn.config(state=tk.NORMAL) 
+            self.frame3_submit_btn.config(state=tk.NORMAL)
+            self.frame4_submit_btn.config(state=tk.NORMAL)
+            self.update_label("IDLA Simulations")  # Update status label
             return
+        else:
+            try:
+                self.frame2_particle_num = int(self.frame2_particle_num)
+            except ValueError:
+                messagebox.showerror("Error", "Please enter a valid number of particles")
+                self.frame1_submit_btn.config(state=tk.NORMAL)  # Disable all submit buttons while task is running
+                self.frame2_submit_btn.config(state=tk.NORMAL) 
+                self.frame3_submit_btn.config(state=tk.NORMAL)
+                self.frame4_submit_btn.config(state=tk.NORMAL)
+                self.update_label("IDLA Simulations")  # Update status label
+                return
         self.frame2_particle_num = int(self.frame2_E1.get())
         self.frame2_branch_active = branch_active
         self.frame2_savepath = savepath
@@ -469,7 +501,7 @@ class MyGUI:
             xline=[edges[i][0][0], edges[i][1][0]]
             yline=[edges[i][0][1], edges[i][1][1]]
             zline=[edges[i][0][2], edges[i][1][2]]
-            ax2.plot(xline,yline,zline,linewidth=2, color = 'C0')
+            ax2.plot(xline,yline,zline,linewidth=0.5, color = 'C0')
         if branch_arg:
             for i in range(len(Branch)):
                 xline=[Branch[i][0][0],Branch[i][1][0]]
@@ -548,12 +580,44 @@ class MyGUI:
         self.frame3_particle_num = self.frame3_E1.get() if self.frame3_E1 else None
         if not self.frame3_particle_num:
             messagebox.showerror("Error", "Please enter a valid number of particles")
+            self.frame1_submit_btn.config(state=tk.NORMAL)  # reenable all submit buttons while task is running
+            self.frame2_submit_btn.config(state=tk.NORMAL)
+            self.frame3_submit_btn.config(state=tk.NORMAL)
+            self.frame4_submit_btn.config(state=tk.NORMAL)
+            self.update_label("IDLA Simulations")
             return
+        else:
+            try:
+                self.frame3_particle_num = int(self.frame3_particle_num)
+            except ValueError:
+                messagebox.showerror("Error", "Please enter a valid number of particles")
+                self.frame1_submit_btn.config(state=tk.NORMAL)  # Disable all submit buttons while task is running
+                self.frame2_submit_btn.config(state=tk.NORMAL) 
+                self.frame3_submit_btn.config(state=tk.NORMAL)
+                self.frame4_submit_btn.config(state=tk.NORMAL)
+                self.update_label("IDLA Simulations")  # Update status label
+                return
         self.frame3_particle_num = int(self.frame3_E1.get())
         self.frame3_level = self.frame3_E2.get() if self.frame3_E2 else None
+        # Check if the level is valid and not empty
         if not self.frame3_level:
             messagebox.showerror("Error", "Please enter a valid level")
+            self.frame1_submit_btn.config(state=tk.NORMAL)
+            self.frame2_submit_btn.config(state=tk.NORMAL)
+            self.frame3_submit_btn.config(state=tk.NORMAL)
+            self.frame4_submit_btn.config(state=tk.NORMAL)
             return
+        else:
+            try:
+                self.frame3_level = int(self.frame3_level)
+            except ValueError:
+                messagebox.showerror("Error", "Please enter a valid number of particles")
+                self.frame1_submit_btn.config(state=tk.NORMAL)  # Reenable all submit buttons if an error occurs
+                self.frame2_submit_btn.config(state=tk.NORMAL) 
+                self.frame3_submit_btn.config(state=tk.NORMAL)
+                self.frame4_submit_btn.config(state=tk.NORMAL)
+                self.update_label("IDLA Simulations")  # Update status label
+                return
         self.frame3_level = int(self.frame3_E2.get())
         self.frame3_savepath = savepath
         if self.stop_event.is_set():
@@ -658,14 +722,47 @@ class MyGUI:
         # Simulate treeplot processing here
         savepath = f"C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Scripts IDLA\\GUI\\sim\\2D\\multisource\\{self.frame4_filename}"
         self.frame4_particle_num = self.frame4_E1.get() if self.frame4_E1 else None
-        if not self.frame4_particle_num:
+        #Ensure that the entry is not empty, and is an integer
+        if not self.frame4_particle_num or not isinstance(self.frame4_particle_num, int):
             messagebox.showerror("Error", "Please enter a valid number of particles")
+            self.frame1_submit_btn.config(state=tk.NORMAL)
+            self.frame2_submit_btn.config(state=tk.NORMAL)
+            self.frame3_submit_btn.config(state=tk.NORMAL)
+            self.frame4_submit_btn.config(state=tk.NORMAL)
+            self.update_label("IDLA Simulations")
             return
+        else:
+            try:
+                self.frame4_particle_num = int(self.frame4_particle_num)
+            except ValueError:
+                messagebox.showerror("Error", "Please enter a valid number of particles")
+                self.frame1_submit_btn.config(state=tk.NORMAL)  # Reenable all submit buttons if an error occurs
+                self.frame2_submit_btn.config(state=tk.NORMAL) 
+                self.frame3_submit_btn.config(state=tk.NORMAL)
+                self.frame4_submit_btn.config(state=tk.NORMAL)
+                self.update_label("IDLA Simulations")  # Update status label
+                return
         self.frame4_particle_num = int(self.frame4_E1.get())
         self.frame4_level = self.frame4_E2.get() if self.frame4_E2 else None
         if not self.frame4_level:
             messagebox.showerror("Error", "Please enter a valid level")
+            self.frame1_submit_btn.config(state=tk.NORMAL)
+            self.frame2_submit_btn.config(state=tk.NORMAL)
+            self.frame3_submit_btn.config(state=tk.NORMAL)
+            self.frame4_submit_btn.config(state=tk.NORMAL)
+            self.update_label("IDLA Simulations")
             return
+        else:
+            try:
+                self.frame4_level = int(self.frame4_level)
+            except ValueError:
+                messagebox.showerror("Error", "Please enter a valid number of particles")
+                self.frame1_submit_btn.config(state=tk.NORMAL)  # Disable all submit buttons while task is running
+                self.frame2_submit_btn.config(state=tk.NORMAL) 
+                self.frame3_submit_btn.config(state=tk.NORMAL)
+                self.frame4_submit_btn.config(state=tk.NORMAL)
+                self.update_label("IDLA Simulations")  # Update status label
+                return
         self.frame4_level = int(self.frame4_E2.get())
         self.frame4_savepath = savepath
         if self.stop_event.is_set():
