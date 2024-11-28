@@ -1,5 +1,6 @@
 from interface import *
 import os
+import tkinter as tk
 
 if __name__ == "__main__":
     #create a folder with the correct names
@@ -16,4 +17,7 @@ if __name__ == "__main__":
         os.makedirs(f"{parent_folder}\\{child_folder2D}\\{child_child_multi}")
         os.makedirs(f"{parent_folder}\\{child_folder3D}\\{child_child_classical}")
         os.makedirs(f"{parent_folder}\\{child_folder3D}\\{child_child_multi}")
-    gui = MyGUI()
+    root = tk.Tk()
+    app = MyGUI(root)
+    app.run()
+

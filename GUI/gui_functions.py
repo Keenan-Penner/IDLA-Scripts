@@ -173,7 +173,7 @@ def idla3d_general(n, source, agg):
 @jit(nopython=True)
 def A2(n,M): 
     level_list=levelsaxis(M)
-    count=0
+    count=1
     total = 2*M +1
     progress = 1
     I=[[0,0]]
@@ -184,14 +184,14 @@ def A2(n,M):
         if count >= (total/10)*progress:
             print(f"Process at {progress*10}%")
             progress+=1
-    return I[1:]
+    return I
 
 
 # Multi-source IDLA in 3D (An[M])
 @jit(nopython=True)
 def A3(n, M): 
     level_list = levelsplane(M)
-    count = 0
+    count = 1
     I = [[0,0,0]]
     total = (2*M +1)**2
     progress = 1
@@ -202,7 +202,7 @@ def A3(n, M):
         if count >= (total/10)*progress:
             print(f"Process at {progress*10}%")
             progress+=1
-    return I[1:]
+    return I
 
 ## 2D CLASSICAL IDLA PLOTTING
 
