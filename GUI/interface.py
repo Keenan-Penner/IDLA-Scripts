@@ -336,7 +336,7 @@ class MyGUI:
         ax1.set_xlim([-extremum - 1, extremum + 1])
         ax1.set_ylim([-extremum - 1, extremum + 1])
         ax1.set_title(f"2D IDLA with {n} particles")
-        ax1.scatter(xpoints, ypoints, s=2, color = 'C0')
+        ax1.scatter(xpoints, ypoints, s=10, color = 'C0')
 
         ##TREE
         point=A[0][-1]
