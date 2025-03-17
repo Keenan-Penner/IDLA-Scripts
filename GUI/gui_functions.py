@@ -234,7 +234,7 @@ def treeplot2d(n, branch_arg, save_path):
     max_x = max(abs(min(xpoints)), max(xpoints))
     max_y = max(abs(min(ypoints)), max(ypoints))
 
-    plt.scatter(xpoints, ypoints, s=2, color = 'C0')
+    plt.scatter(xpoints, ypoints, s=2, color = 'red')
     plt.axis('square')
     extremum = max(max_x, max_y)
     plt.xlim(-extremum - 1, extremum + 1)
