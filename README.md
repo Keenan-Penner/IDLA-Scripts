@@ -10,7 +10,7 @@ We will recursively build a family of aggregates $A(n)$ as follows:
 In other words, $A(n)$ is obtained by taking $A(n-1)$ and adding the first site that the random walk $S$ visits outside of $A(n-1)$.
 
 For example, here is a simulation with 20000 particles:
-![My Image](data/IDLA_20000.png)
+![My Image](data/github_readme/IDLA_20000.png)
 
 ## The IDLA tree
 
@@ -22,17 +22,17 @@ $E_n=E_{n-1}\cup \\{(S(\tau_{n-1},S(\tau_n)\\}$ with $\tau_n=\inf\\{t\geq 0,\ S(
 Essentially, the vertices of our tree at some step $n$ are are the same as the standard IDLA aggregate A(n), while the edges are obtained by taking the edge through which the random walk exits the aggregate $A(n-1)$.
 
 Here is a simulation of this tree using 20000 particles (the colors of the edges has no particular significance).
-![My Image](data/IDLA_tree_20000.png)
+![My Image](data/github_readme/IDLA_tree_20000.png)
 The same simulation using 1000 particles in 3D:
 <p align="center">
-	<img src=data/IDLA_tree_3D_1.png width=50% height=50%>
+	<img src=data/github_readme/IDLA_tree_3D_1.png width=50% height=50%>
 </p>
 
 ### Using the GUI
 The GUI folder contains Python code capable of simulating various IDLA models. Begin by copying the contents of the folder named 'GUI' to your machine, and run ```GUI/main.py``` in your terminal.
 The following window should pop up :
 
-![My Image](data/gui_capture.PNG)
+![My Image](data/github_readme/gui_capture.PNG)
 
 At the moment, you can choose between 4 different models: the classical IDLA model in 2D and 3D, and the multisource IDLA model in 2D and 3D.
 For the classical models, the GUI returns images of the aggregate and its associated tree, with the option of highlighting the last plotted branch. 
@@ -82,4 +82,4 @@ In both functions, $n$ is the number of particles sent from the origin. -->
 
 As an example, a simulation with 20000 particles gives something like
 
-![My Image](data/branchtest6.png)
+![My Image](data/github_readme/branchtest6.png)
