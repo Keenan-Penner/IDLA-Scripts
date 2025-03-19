@@ -274,7 +274,7 @@ class MyGUI:
         #print(f"Saving file with name: {self.frame1_filename}")
         # Simulate treeplot processing here
         branch_active = self.frame1_check_state.get()
-        savepath = f"C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Scripts IDLA\\GUI\\sim\\2D\\classical\\{self.frame1_filename}"
+        savepath = f"C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Scripts IDLA\\GUI\\sim\\2D\\classical\\{self.frame1_filename}" if self.frame1_filename != None else None
         self.frame1_particle_num = self.frame1_E1.get() if self.frame1_E1 else None
         if not self.frame1_particle_num:
             messagebox.showerror("Error", "Please enter a valid number of particles")
@@ -419,7 +419,7 @@ class MyGUI:
         #print(f"Saving file with name: {self.frame2_filename}")
         # Simulate treeplot processing here
         branch_active = self.frame2_check_state.get()
-        savepath = f"C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Scripts IDLA\\GUI\\sim\\3D\\classical\\{self.frame2_filename}"
+        savepath = f"C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Scripts IDLA\\GUI\\sim\\3D\\classical\\{self.frame2_filename}" if self.frame2_filename != None else None
         self.frame2_particle_num = self.frame2_E1.get() if self.frame2_E1 else None
         if not self.frame2_particle_num:
             messagebox.showerror("Error", "Please enter a valid number of particles")
@@ -576,7 +576,7 @@ class MyGUI:
             return
         #print(f"Saving file with name: {self.frame3_filename}")
         # Simulate treeplot processing here
-        savepath = f"C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Scripts IDLA\\GUI\\sim\\2D\\multisource\\{self.frame3_filename}"
+        savepath = f"C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Scripts IDLA\\GUI\\sim\\2D\\multisource\\{self.frame3_filename}" if self.frame3_filename != None else None
         self.frame3_particle_num = self.frame3_E1.get() if self.frame3_E1 else None
         if not self.frame3_particle_num:
             messagebox.showerror("Error", "Please enter a valid number of particles")
@@ -720,7 +720,7 @@ class MyGUI:
             return
         #print(f"Saving file with name: {self.frame4_filename}")
         # Simulate treeplot processing here
-        savepath = f"C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Scripts IDLA\\GUI\\sim\\2D\\multisource\\{self.frame4_filename}"
+        savepath = f"C:\\Users\\keena\\OneDrive\\Bureau\\Math\\Python\\Scripts IDLA\\GUI\\sim\\2D\\multisource\\{self.frame4_filename}" if self.frame4_filename != None else None
         self.frame4_particle_num = self.frame4_E1.get() if self.frame4_E1 else None
         #Ensure that the entry is not empty, and is an integer
         if not self.frame4_particle_num or not isinstance(self.frame4_particle_num, int):
