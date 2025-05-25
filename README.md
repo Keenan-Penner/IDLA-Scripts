@@ -69,7 +69,7 @@ plt.show()
 ``` -->
 ## Questions around the model
 
-This tree is difficult to study due to the strong dependency bewteen all particles in the IDLA model as well as its radial aspect. One of the main interesting questions about this tree is the straightness of its branches. 
+This tree is difficult to study due to the strong dependency between all particles in the IDLA model as well as its radial aspect. One of the main interesting questions about this tree is the straightness of its branches. 
 Looking at various simulations, these branches seem relatively straight, but this remains to be proven. 
 The user can play around by checking the 'Show highlighted branch' on the 2D and 3D classical IDLA tabs. Note that this may not be easily visible in 3D.
 
