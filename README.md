@@ -14,10 +14,10 @@ For example, here is a simulation with 20000 particles:
 
 ## The IDLA tree
 
-Behind the IDLA aggregate hides an IDLA tree. This tree is constructed in a recursive manner as well. We build our tree $T(n)=(E_n, V_n)$ as follows:
+Behind the IDLA aggregate hides an IDLA tree. This tree is constructed in a recursive manner as well. We build our tree $T(n)=(V_n,\ E_n)$ as follows:
 1. For $n=1,\ V_1=0$ and $E_1=\emptyset$.
 2. Let $n\geq 2$. Given $T(n-1)$ and $S$ a simple symmetric random walk on $\mathbb{Z}^d$ starting from $0$, we define just as above $V_n=V_{n-1}\cup \{S(\tau_n)\}$ and
-$E_n=E_{n-1}\cup \\{S(\tau_{n-1}-1),S(\tau_{n-1})\\}$ with $\tau_{n-1}=\inf\\{t\geq 0,\ S(t)\notin V_{n-1}\\}$.
+$E_n=E_{n-1}\cup \\{S(\tau_{n-1}-1),S(\tau_{n-1})\\}$, with $\tau_{n-1}=\inf\\{t\geq 0,\ S(t)\notin V_{n-1}\\}$.
 
 Essentially, the vertices of our tree at some step $n$ are are the same as the standard IDLA aggregate A(n), while the edges are obtained by taking the edge through which the random walk exits the aggregate $A(n-1)$.
 
